@@ -1,4 +1,4 @@
-<div class="mt-5">
+<div class="mt-5 animated fadeIn fast">
     <p>Ingresar una ciudad para ver el clima y noticias.</p>
     <form class="form-inline my-2 my-lg-0" (ngSubmit)="getWeatherNoticias(f)" #f="ngForm">
         <input class="form-control mr-sm-2" type="search" placeholder="Buscar localidad" aria-label="Search" [(ngModel)]="ciudadActual" name="ciudad">
@@ -8,7 +8,7 @@
 </div>
 <br>
 <div class="row">
-    <div class="col">
+    <div class="col animated fadeIn slow">
         <h2>Clima actual</h2>
         <div class="card" style="width: 18rem;" *ngIf="icono.length >0">
             <img [src]="icono" class="card-img-top">
@@ -31,39 +31,15 @@
             </div>
         </div>
     </div>
-    <div class="col" *ngIf="icono.length >0">
+    <div class="col animated fadeIn slow" *ngIf="icono.length >0">
         <h2>Noticias relacionadas:<small>{{ciudadActual}}</small></h2>
         <div class="table-responsive-sm">
             <table class="table">
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <a [href]="url0">
-                            <td>{{tituloNoticia0}}</td>
-                        </a>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <a [href]="url1">
-                            <td>{{tituloNoticia1}}</td>
-                        </a>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <a [href]="url2">
-                            <td>{{tituloNoticia2}}</td>
-                        </a>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <a [href]="url3">
-                            <td>{{tituloNoticia3}}</td>
-                        </a>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <a [href]="url4">
-                            <td>{{tituloNoticia4}}</td>
+                    <tr *ngFor="let noticia of noticias; index as i">
+                        <th scope="row" *ngIf="i>0">{{i}}</th>
+                        <a [href]="url[i]">
+                            <td>{{noticia}}</td>
                         </a>
                     </tr>
                 </tbody>

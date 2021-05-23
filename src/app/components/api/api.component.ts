@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { ClimaService } from '../../services/clima.service';
 import { Form } from '@angular/forms';
 import { NoticiasService } from '../../services/noticias.service';
@@ -13,9 +13,10 @@ export class ApiComponent{
   constructor(private climaService    : ClimaService,
               private noticiasService : NoticiasService) { }
 
+  //Input
+  inputEntero:      any;
+  //Clima
    objetoClima:     any;
-   objetoNews:      any;
-   inputEntero:     any;
    temperatura:     number=0;
    sensacion:       number=0;
    icono:           string='';
@@ -23,17 +24,11 @@ export class ApiComponent{
    nubes:           number=0;
    nubesStr:        string='';
    ciudadActual:    string='';
-   tituloNoticia0:  string='';
-   tituloNoticia1:  string='';
-   tituloNoticia2:  string='';
-   tituloNoticia3:  string='';
-   tituloNoticia4:  string='';
-   url0:            string='';
-   url1:            string='';
-   url2:            string='';
-   url3:            string='';
-   url4:            string='';
-
+   //Noticias
+   objetoNews:      any;
+   noticias=        [''];
+   url=             [''];
+   
 
   getWeatherNoticias(input:Form){
     //Clima
@@ -55,22 +50,16 @@ export class ApiComponent{
     //Noticias
     this.noticiasService.noticiasCiudad(this.ciudadActual).subscribe(
       resp=>{this.objetoNews = resp;
-      this.tituloNoticia0 = this.objetoNews.data[0].title;
-      this.url0 = this.objetoNews.data[0].url;
-      this.tituloNoticia1 = this.objetoNews.data[1].title;
-      this.url1 = this.objetoNews.data[1].url;
-      this.tituloNoticia2 = this.objetoNews.data[2].title;
-      this.url2 = this.objetoNews.data[2].url;
-      this.tituloNoticia3= this.objetoNews.data[3].title;
-      this.url3 = this.objetoNews.data[3].url;
-      this.tituloNoticia4 = this.objetoNews.data[4].title;
-      this.url4 = this.objetoNews.data[4].url;
+      for (let i = 0; i < 5;) {
+        this.noticias.push(this.objetoNews.data[i].title);
+        this.url.push(this.objetoNews.data[i].url);
+        i++;
+      }
       }
     
     );
 
   }
-
 
   indicarNubes(){
     if(this.nubes <=10){
